@@ -1,0 +1,15 @@
+def dividir_arquivo(nome_arquivo, linhas_por_arquivo):
+    # Lê o arquivo original
+    with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
+        linhas = arquivo.readlines()
+
+    # Cria arquivos menores
+    for i in range(0, len(linhas), linhas_por_arquivo):
+        # Cria um novo nome de arquivo baseado no índice do arquivo
+        nome_novo_arquivo = f"{nome_arquivo.split('.')[0]}_parte_{i//linhas_por_arquivo + 1}.txt"
+        # Escreve as linhas em um novo arquivo
+        with open(nome_novo_arquivo, 'w', encoding='utf-8') as novo_arquivo:
+            novo_arquivo.writelines(linhas[i:i+linhas_por_arquivo])
+
+# Exemplo de uso:
+dividir_arquivo('caminho_para_seu_arquivo.txt', 50000)
