@@ -1,0 +1,19 @@
+import pandas as pd
+
+def dividir_excel(nome_arquivo, linhas_por_arquivo):
+    # Carrega o arquivo Excel
+    df = pd.read_excel(nome_arquivo)
+    
+    # Determina o número total de arquivos a serem criados
+    total_arquivos = len(df) // linhas_por_arquivo + (1 if len(df) % linhas_por_arquivo else 0)
+
+    # Divide o DataFrame e salva em novos arquivos Excel
+    for i in range(total_arquivos):
+        inicio = i * linhas_por_arquivo
+        fim = inicio + linhas_por_arquivo
+        novo_df = df.iloc[inicio:fim]
+        nome_novo_arquivo = f"{nome_arquivo.split('.')[0]}_parte_{i+1}.xlsx"
+        novo_df.to_excel(nome_novo_arquivo, index=False)
+
+# Exemplo de uso:
+dividir_excel('caminho_para_seu_arquivo.xlsx', 50000)
